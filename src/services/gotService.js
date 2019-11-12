@@ -60,39 +60,52 @@ export default class GotService {
     // getHouse(id) {
     //     return this.getResource(`/houses/${id}`);
     // }
-
-    _transformCharacter(char) {
+    _isData = item => {
+        for (const prop in item) {
+            if (item[prop] === '') {
+                item[prop] = 'n/a'
+            }
+        }
+        return item;
+    };
+    _transformCharacter = (char) => {
+        const item = this._isData(char);
         return {
-            name: char.name,
+            name: item.name,
             gender: char.gender,
             born: char.born,
             died: char.died,
-            culture: char.culture
+            culture: char.culture,
+            id: char.url.match(/\d+$/).join()
         }
     }
 
-    _transformHouse(house) {
+    _transformHouse = (house) => {
+        const item = this._isData(house);
         return {
-            name: house.name,
+            name: item.name,
             region: house.region,
             words: house.words,
             titles: house.titles,
             overlord: house.overlord,
-            ancestralWeapons: house.ancestralWeapons
+            ancestralWeapons: house.ancestralWeapons,
+            id: house.url.match(/\d+$/).join()
         }
     }
 
-    _transformBook(book) {
+    _transformBook = (book) => {
+        const item = this._isData(book);
         return {
-            name: book.name,
+            name: item.name,
             numberOfPages: book.numberOfPages,
             publiser: book.publiser,
-            released: book.released
+            released: book.released,
+            id: book.url.match(/\d+$/).join()
         }
     }
 }
 
-const got = new GotService();
+//const got = new GotService();
 
 // got.getAllCharacters()
 //     .then(res => {
