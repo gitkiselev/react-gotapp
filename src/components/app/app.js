@@ -3,10 +3,10 @@ import {Col, Row, Container} from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
 import ErrorMessage from '../errorMessage';
-import CharactersPage from '../pages/CharactersPage';
-//import BooksPage from '../pages/BooksPage';
-//import HousesPage from '../pages/HousesPage';
-//import ItemList from '../itemList';
+import CharacterPage from '../pages/CharactersPage';
+import BooksPage from '../pages/BooksPage';
+import HousesPage from '../pages/HousesPage';
+import ItemList from '../itemList';
 //import CharDetails from '../charDetails';
 import gotService from '../../services/gotService';
 //import styled from "styled-components";
@@ -61,7 +61,7 @@ export default class App extends Component {
                             {this.state.visible ? <RandomChar/> : null}
                         </Col>
                     </Row>
-                    <CharactersPage />
+                    <CharacterPage />
                     {/* <Row>
                         <Col md='6'>
                             <ItemList onItemSelected={this.onItemSelected}
@@ -71,8 +71,8 @@ export default class App extends Component {
                         <Col md='6'>
                             <CharDetails charId={this.state.selectedChar}/>
                         </Col>
-                    </Row> */}
-                    {/* <BooksPage /> */}
+                    </Row> */} */}
+                    <BooksPage />
                     {/* <Row>
                         <Col md='6'>
                             <ItemList onItemSelected={this.onItemSelected}
@@ -83,7 +83,7 @@ export default class App extends Component {
                             <CharDetails charId={this.state.selectedChar}/>
                         </Col>
                     </Row> */}
-                    {/* <HousesPage /> */}
+                    <HousesPage />
                 </Container>
             </>
         );

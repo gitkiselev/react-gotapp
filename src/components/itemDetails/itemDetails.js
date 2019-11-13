@@ -14,7 +14,7 @@ const Field = ({item, field, label}) => {
 }
 
 export {Field}
-export default class CharDetails extends Component {
+export default class ItemDetails extends Component {
 
     state = {
         item: null,
@@ -27,9 +27,9 @@ export default class CharDetails extends Component {
 
     componentDidUpdate(prevProps) {
         if(this.props.itemId !== prevProps.itemId) {
-            this.setState({
-                loading: true
-        });
+            // this.setState({
+            //     loading: true
+            // });
             this.updateItem();
         }
     }

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import ItemList from '../itemList';
-import CharDetails, {Field} from '../itemDetails/index';
+import CharDetails, {Field} from '../itemDetails';
 import ErrorMessage from '../errorMessage';
 import gotService from '../../services/gotService';
 import RowBlock from '../rowBlock';
+
 export default class CharacterPage extends Component {
     gotService = new gotService();
 
@@ -13,8 +14,10 @@ export default class CharacterPage extends Component {
     }
 
     onItemSelected = (id) => {
+        console.log(id)
         this.setState({
-            selectedChar: id
+            selectedChar: id,
+            error: false
         })
     }
 
@@ -28,7 +31,9 @@ export default class CharacterPage extends Component {
         if(this.state.error) {
             return <ErrorMessage />
         }
-
+        if(this.selectedChar === null){
+            console.log('selectedChar === null');
+        }
         const itemList = (
             <ItemList
                 onItemSelected={this.onItemSelected}
@@ -36,7 +41,7 @@ export default class CharacterPage extends Component {
                 renderItem={({name, gender}) => `${name} (${gender})`}/>
         )
 
-        const itemDetails = (
+        const charDetails = (
             <CharDetails charId={this.state.selectedChar}>
                 <Field field='gender' label='Gender' />
                 <Field field='born' label='Born' />
@@ -46,7 +51,7 @@ export default class CharacterPage extends Component {
         )
 
         return (
-            <RowBlock left={itemList} right={itemDetails}/>
+            <RowBlock left={itemList} right={charDetails}/>
         )
     }
 }

@@ -8,7 +8,7 @@ export default class CharacterPage extends Component {
     gotService = new gotService();
 
     state = {
-        selectedHouses: null,//130
+        selectedHouse: null,//130
         error: false
     }
 
