@@ -2,64 +2,42 @@ export default class GotService {
     constructor() {
         this._apiBase = 'https://www.anapioficeandfire.com/api';
     }
-    async getResource(url) {
+    getResource = async (url) => {
         const res = await fetch(`${this._apiBase}${url}`);
         if(!res.ok) {
             throw new Error(`Could not fetch ${url}, status: ${res.status}`);
         }
         return await res.json();
     }
-    async getAllCharacters() {
+    getAllCharacters = async() => {
         const res = await this.getResource('/characters?page=5&pageSize=10');
         return res.map(this._transformCharacter)
     }
-    async getCharacter(id) {
+    getCharacter = async (id) => {
         const character = await this.getResource(`/characters/${id}`);
         return this._transformCharacter(character)
     }
 
 
-    async getAllBooks() {
+    getAllBooks = async () => {
         const res = await this.getResource('/books');
         return res.map(this._transformBook)
     }
-    async getBook(id) {
+    getBook = async (id) => {
         const book = await this.getResource(`/books/${id}`);
         return this._transformBook(book)
     }
 
 
-    async getAllHouses() {
+    getAllHouses = async () => {
         const res = await this.getResource('/houses');
         return res.map(this._transformHouse)
     }
-    async getHouse(id) {
+    getHouse = async (id) => {
         const house = await this.getResource(`/houses/${id}`);
         return this._transformBook(house)
     }
 
-
-
-
-
-
-
-
-
-
-    // getAllBooks() {
-    //     return this.getResource('/books?page=1&pageSize=10');
-    // }
-    // getBook(id) {
-    //     return this.getResource(`/books/${id}`);
-    // }
-
-    // getAllHouses() {
-    //     return this.getResource('/houses?page=5&pageSize=10');
-    // }
-    // getHouse(id) {
-    //     return this.getResource(`/houses/${id}`);
-    // }
     _isData = item => {
         for (const prop in item) {
             if (item[prop] === '') {
@@ -104,26 +82,3 @@ export default class GotService {
         }
     }
 }
-
-//const got = new GotService();
-
-// got.getAllCharacters()
-//     .then(res => {
-//         res.forEach(item => console.log(item.name));
-//     });
-// got.getCharacter(130)
-//     .then(res => console.log(res));
-
-// got.getAllBooks()
-// .then(res => {
-//     res.forEach(item => console.log(item.name));
-// });
-// got.getBook(2)
-//     .then(res => console.log(res));
-
-// got.getAllHouses()
-// .then(res => {
-//     res.forEach(item => console.log(item.name));
-// });
-// got.getHouse(130)
-//     .then(res => console.log(res));

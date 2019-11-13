@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import ItemList from '../itemList';
-import ItemDetails, {Field} from '../itemDetails';
+import CharDetails, {Field} from '../itemDetails/index';
 import ErrorMessage from '../errorMessage';
 import gotService from '../../services/gotService';
 import RowBlock from '../rowBlock';
-
 export default class CharacterPage extends Component {
     gotService = new gotService();
 
@@ -30,7 +29,7 @@ export default class CharacterPage extends Component {
             return <ErrorMessage />
         }
 
-        const charList = (
+        const itemList = (
             <ItemList
                 onItemSelected={this.onItemSelected}
                 getData={this.gotService.getAllCharacters}
@@ -38,17 +37,16 @@ export default class CharacterPage extends Component {
         )
 
         const itemDetails = (
-            <ItemDetails charId={this.state.selectedChar}
-            getData={this.gotService.getCharacter}>
+            <CharDetails charId={this.state.selectedChar}>
                 <Field field='gender' label='Gender' />
                 <Field field='born' label='Born' />
                 <Field field='died' label='Died' />
                 <Field field='culture' label='Culture' />
-            </ItemDetails>
+            </CharDetails>
         )
 
         return (
-            <RowBlock left={charList} right={itemDetails}/>
+            <RowBlock left={itemList} right={itemDetails}/>
         )
     }
 }

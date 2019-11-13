@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ItemList from '../itemList';
-import ItemDetails, {Field} from '../itemDetails';
+import CharDetails, {Field} from '../itemDetails';
 import ErrorMessage from '../errorMessage';
 import gotService from '../../services/gotService';
 import RowBlock from '../rowBlock';
@@ -30,25 +30,24 @@ export default class CharacterPage extends Component {
             return <ErrorMessage />
         }
 
-        const charList = (
+        const bookList = (
             <ItemList
                 onItemSelected={this.onItemSelected}
-                getData={this.gotService.getAllCharacters}
-                renderItem={({name, gender}) => `${name} (${gender})`}/>
+                getData={this.gotService.getAllBooks}
+                renderItem={({name}) => `${name}`}/>
         )
 
-        const itemDetails = (
-            <ItemDetails charId={this.state.selectedChar}
-            getData={this.gotService.getCharacter}>
-                <Field field='gender' label='Gender' />
-                <Field field='born' label='Born' />
-                <Field field='died' label='Died' />
-                <Field field='culture' label='Culture' />
-            </ItemDetails>
+        const bookDetails = (
+            <CharDetails charId={this.state.selectedChar}>
+                <Field field='name' label='Name' />
+                <Field field='numberOfPages' label='NumberOfPages' />
+                <Field field='publiser' label='Publiser' />
+                <Field field='released' label='Released' />
+            </CharDetails>
         )
 
         return (
-            <RowBlock left={charList} right={itemDetails}/>
+            <RowBlock left={bookList} right={bookDetails}/>
         )
     }
 }

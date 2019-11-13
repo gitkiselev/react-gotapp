@@ -1,23 +1,22 @@
 import React, {Component} from 'react';
 import './itemList.css';
-import gotService from '../../services/gotService';
 import Spinner from '../spinner';
 import ErrorMessage from '../errorMessage';
 
 export default class ItemList extends Component {
-    gotService = new gotService();
 
     state = {
-        charList: null,
+        itemList: null,
         error: false,
         loading: true
     }
 
     componentDidMount() {
-        this.gotService.getAllCharacters()
-            .then((charList) => {
+        const {getData} = this.props;
+        getData()
+            .then((itemList) => {
                 this.setState({
-                    charList,
+                    itemList,
                     loading: false
                 })
             })
@@ -32,37 +31,29 @@ export default class ItemList extends Component {
         })
     }
     
-    
-
-    
-    
-
     renderItems(arr) {
         return arr.map((item) => {
             const {id} = item;
+            const label = this.props.renderItem(item);
             return (
                 <li
                     key={id}
                     className="list-group-item"
-                    onClick={() => this.props.onCharSelected(id)}>
-                    {item.name} 
+                    onClick={() => this.props.onItemSelected(id)}>
+                    {label} 
                 </li>
             )
         })
     }
 
     render() {
-        const {charList, error, loading} = this.state;
+        const {itemList, error, loading} = this.state;
         const errorMessage = error ? <ErrorMessage /> : null;
         const spinner = loading ? <Spinner /> : null;
-        const content = !(loading || error) ? this.renderItems(charList) : null;
-
-        
-        
-        
+        const content = !(loading || error) ? this.renderItems(itemList) : null;
 
         return (
-            <ul className=" item-list items-block">
+            <ul className=" item-list items-block rounded">
                 {errorMessage}
                 {spinner}
                 {content}
