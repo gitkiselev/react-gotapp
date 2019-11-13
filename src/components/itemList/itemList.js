@@ -62,7 +62,7 @@ export default class ItemList extends Component {
         
 
         return (
-            <ul className=" item-list  list-group bg-white">
+            <ul className=" item-list items-block">
                 {errorMessage}
                 {spinner}
                 {content}

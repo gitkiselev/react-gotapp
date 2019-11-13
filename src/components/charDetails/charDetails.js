@@ -74,9 +74,8 @@ export default class CharDetails extends Component {
         
         
         return (
-            <div className="rounded bg-white">
-               
-            {errorMessage}
+            <div className="rounded bg-white"> 
+                {errorMessage}
                 {spinner}
                 {content}
             </div>
