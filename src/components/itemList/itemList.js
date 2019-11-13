@@ -17,10 +17,11 @@ export default class ItemList extends Component {
         this.gotService.getAllCharacters()
             .then((charList) => {
                 this.setState({
-                    charList
+                    charList,
+                    loading: false
                 })
             })
-             // this.foo.bar = 0;
+              //this.foo.bar = 0;
             
     }
 
@@ -51,16 +52,20 @@ export default class ItemList extends Component {
     }
 
     render() {
-        const {charList, error} = this.state;
-        if(!charList) {
-            return <Spinner />
-        }
-        const items = this.renderItems(charList);
+        const {charList, error, loading} = this.state;
+        const errorMessage = error ? <ErrorMessage /> : null;
+        const spinner = loading ? <Spinner /> : null;
+        const content = !(loading || error) ? this.renderItems(charList) : null;
+
+        
+        
+        
 
         return (
-            <ul className="item-list list-group">
-               {items}
-               {error ? <ErrorMessage /> : null}
+            <ul className=" item-list  list-group bg-white">
+                {errorMessage}
+                {spinner}
+                {content}
             </ul>
         );
     }
