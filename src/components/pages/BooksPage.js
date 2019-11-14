@@ -44,7 +44,7 @@ export default class BooksPage extends Component {
             getData={this.gotService.getBook}>
                 <Field field='name' label='Name' />
                 <Field field='numberOfPages' label='NumberOfPages' />
-                <Field field='publiser' label='Publiser' />
+                <Field field='publiser' label='Publisher' />
                 <Field field='released' label='Released' />
             </ItemDetails>
         )

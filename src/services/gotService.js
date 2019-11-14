@@ -50,11 +50,11 @@ export default class GotService {
         const item = this._isData(char);
         return {
             name: item.name,
-            gender: char.gender,
-            born: char.born,
-            died: char.died,
-            culture: char.culture,
-            id: char.url.match(/\d+$/).join()
+            gender: item.gender,
+            born: item.born,
+            died: item.died,
+            culture: item.culture,
+            id: item.url.match(/\d+$/).join()
         }
     }
 
@@ -62,12 +62,12 @@ export default class GotService {
         const item = this._isData(house);
         return {
             name: item.name,
-            region: house.region,
-            words: house.words,
-            titles: house.titles,
-            overlord: house.overlord,
-            ancestralWeapons: house.ancestralWeapons,
-            id: house.url.match(/\d+$/).join()
+            region: item.region,
+            words: item.words,
+            titles: item.titles,
+            overlord: item.overlord,
+            ancestralWeapons: item.ancestralWeapons,
+            id: item.url.match(/\d+$/).join()
         }
     }
 
@@ -75,10 +75,10 @@ export default class GotService {
         const item = this._isData(book);
         return {
             name: item.name,
-            numberOfPages: book.numberOfPages,
-            publiser: book.publiser,
-            released: book.released,
-            id: book.url.match(/\d+$/).join()
+            numberOfPages: item.numberOfPages,
+            publiser: item.publiser,
+            released: item.released,
+            id: item.url.match(/\d+$/).join()
         }
     }
 }
