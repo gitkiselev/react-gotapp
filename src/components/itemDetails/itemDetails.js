@@ -26,10 +26,10 @@ export default class ItemDetails extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if(this.props.itemId !== prevProps.itemId) {
-            // this.setState({
-            //     loading: true
-            // });
+        if(this.props.id !== prevProps.id) {
+            this.setState({
+                loading: true
+            });
             this.updateItem();
         }
     }
@@ -49,13 +49,13 @@ export default class ItemDetails extends Component {
     }
 
     updateItem() {
-        const {itemId} = this.props;
-            if(!itemId) {
+        const {getData} = this.props;
+        const {id} = this.props;
+            if(!id) {
                 return;
             }
-            const {getData} = this.props;
-            getData(itemId)
             
+            getData(id)
             .then(this.onItemLoaded)
             .catch(this.onError);
            //this.foo.bar = 0;
@@ -78,10 +78,10 @@ export default class ItemDetails extends Component {
         if (this.state.loading) {
             return <Spinner/>
         }
-        //const spinner = loading ? <Spinner /> : null;
+        
         const {name} = item;
         return (
-                <div className="char-details rounded"> 
+            <div className="char-details rounded"> 
                 <h4>{name}</h4>
                     <ul className="list-group list-group-flush"> 
                     {

@@ -3,11 +3,11 @@ import {Col, Row, Container} from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
 import ErrorMessage from '../errorMessage';
-import CharacterPage from '../pages/CharactersPage';
+import CharactersPage from '../pages/CharactersPage';
 import BooksPage from '../pages/BooksPage';
 import HousesPage from '../pages/HousesPage';
-import ItemList from '../itemList';
-//import CharDetails from '../charDetails';
+//import ItemList from '../itemList';
+//import CharDetails from '../itemDetails';
 import gotService from '../../services/gotService';
 //import styled from "styled-components";
 import './app.css';
@@ -61,29 +61,9 @@ export default class App extends Component {
                             {this.state.visible ? <RandomChar/> : null}
                         </Col>
                     </Row>
-                    <CharacterPage />
-                    {/* <Row>
-                        <Col md='6'>
-                            <ItemList onItemSelected={this.onItemSelected}
-                            getData={this.gotService.getAllBooks}
-                            renderItem={(item) => item.name}/>
-                        </Col>
-                        <Col md='6'>
-                            <CharDetails charId={this.state.selectedChar}/>
-                        </Col>
-                    </Row> */} */}
-                    <BooksPage />
-                    {/* <Row>
-                        <Col md='6'>
-                            <ItemList onItemSelected={this.onItemSelected}
-                            getData={this.gotService.getAllHouses}
-                            renderItem={(item) => item.name}/>
-                        </Col>
-                        <Col md='6'>
-                            <CharDetails charId={this.state.selectedChar}/>
-                        </Col>
-                    </Row> */}
-                    <HousesPage />
+                <CharactersPage /> 
+                <BooksPage />
+                <HousesPage />
                 </Container>
             </>
         );

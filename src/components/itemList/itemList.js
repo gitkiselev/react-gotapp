@@ -24,6 +24,7 @@ export default class ItemList extends Component {
             
     }
 
+
     onError = (err) => {
         this.setState({
             error: true,
@@ -32,6 +33,7 @@ export default class ItemList extends Component {
     }
     
     renderItems(arr) {
+        
         return arr.map((item) => {
             const {id} = item;
             const label = this.props.renderItem(item);

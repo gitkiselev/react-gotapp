@@ -30,9 +30,9 @@ export default class CharacterPage extends Component {
             return <ErrorMessage />
         }
 
-        const charList = (
+        const itemList = (
             <ItemList
-                onItemSelected={this.onItemSelected}
+                onCharSelected={this.onCharSelected}
                 getData={this.gotService.getAllCharacters}
                 renderItem={({name, gender}) => `${name} (${gender})`}/>
         )
@@ -48,7 +48,7 @@ export default class CharacterPage extends Component {
         )
 
         return (
-            <RowBlock left={charList} right={itemDetails}/>
+            <RowBlock left={itemList} right={itemDetails}/>
         )
     }
 }

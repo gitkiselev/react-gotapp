@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import ItemList from '../itemList';
-import CharDetails, {Field} from '../itemDetails';
+import ItemDetails, {Field} from '../itemDetails';
 import ErrorMessage from '../errorMessage';
 import gotService from '../../services/gotService';
 import RowBlock from '../rowBlock';
-export default class CharacterPage extends Component {
+
+export default class HousesPage extends Component {
     gotService = new gotService();
 
     state = {
@@ -29,7 +30,7 @@ export default class CharacterPage extends Component {
             return <ErrorMessage />
         }
 
-        const housesList = (
+        const itemList = (
             <ItemList
                 onItemSelected={this.onItemSelected}
                 getData={this.gotService.getAllHouses}
@@ -37,7 +38,7 @@ export default class CharacterPage extends Component {
         )
 
         const houseDetails = (
-            <CharDetails charId={this.state.selectedHouse}
+            <ItemDetails id={this.state.selectedHouse}
             getData={this.gotService.getHouse}>
                 <Field field='name' label='Name' />
                 <Field field='region' label='Region' />
@@ -45,11 +46,11 @@ export default class CharacterPage extends Component {
                 <Field field='titles' label='Titles' />
                 <Field field='overlord' label='Overlord'/>
                 <Field field='ancestralWeapons' label='AncestralWeapons'/>
-            </CharDetails>
+            </ItemDetails>
         )
 
         return (
-            <RowBlock left={housesList} right={houseDetails}/>
+            <RowBlock left={itemList} right={houseDetails}/>
         )
     }
 }
