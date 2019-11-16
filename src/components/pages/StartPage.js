@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import ItemList from '../itemList';
 import ErrorMessage from '../errorMessage';
 import gotService from '../../services/gotService';
 import {withRouter} from 'react-router-dom';
 
-class BooksPage extends Component {
+import './css/main.css';
+
+class StartPage extends Component {
     gotService = new gotService();
 
     state = {
@@ -23,14 +24,15 @@ class BooksPage extends Component {
         }
 
         return (
-            <ItemList
-                onItemSelected={(itemId) => {
-                    this.props.history.push(itemId)
-                }}
-                getData={this.gotService.getAllBooks}
-                renderItem={({name}) => `${name}`}/>
+            <>
+            <div>
+                <p className="main-title">Главная страница</p>
+                <p className="main-title">Воспользуйтесь ссылками для перехода на соответствующие разделы</p>
+            </div>
+            
+            </>
         )
     }
 }
 
-export default withRouter(BooksPage);
+export default withRouter(StartPage);
