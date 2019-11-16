@@ -47,11 +47,11 @@ export default class App extends Component {
 
                     <Container>
                         
-                        <Route path='/'  component={StartPage}/>
+                        <Route path='/'   component={StartPage}/>
                         
                         <Route path='/characters'  component={CharactersPage}/>
                         <Route path='/houses'  component={HousesPage}/>
-                        <Route path='/books'  component={BooksPage}/>
+                        <Route path='/books'   component={BooksPage}/>
                         <Route path='/books/:id' render={
                             ({match}) => {
                                 const {id} = match.params;

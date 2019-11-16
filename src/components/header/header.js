@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 const HeaderBlock = styled.div`
     display: flex;
@@ -31,21 +31,21 @@ const Header = () => {
     return (
         <HeaderBlock>
             <HeaderTitle>
-                <Link to='/' exact>
+                <NavLink to='/'>
                 Game of Thrones DB
-                </Link>
+                </NavLink>
                 
             </HeaderTitle>
             <HeaderLinks>
                 
                 <li>
-                    <Link to='/characters/'>Characters</Link>
+                    <NavLink to='/characters/'>Characters</NavLink>
                 </li>
                 <li>
-                    <Link to='/houses/'>Houses</Link>
+                    <NavLink to='/houses/'>Houses</NavLink>
                 </li>
                 <li>
-                    <Link to='/books/'>Books</Link>   
+                    <NavLink to='/books/'>Books</NavLink>   
                 </li>
             </HeaderLinks>
         </HeaderBlock>
