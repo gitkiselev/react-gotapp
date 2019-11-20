@@ -17,13 +17,6 @@ function ItemList({getData, onItemSelected, renderItem}) {
             })
               
     }, []) 
-
-    // onError = (err) => {
-    //     this.setState({
-    //         error: true,
-    //         loading: false
-    //     })
-    // }
     
     function renderItems(arr) {
         
@@ -41,8 +34,6 @@ function ItemList({getData, onItemSelected, renderItem}) {
         })
     }
 
-    
-    
     //const errorMessage = error ? <ErrorMessage /> : null;
     //const spinner = loading ? <Spinner /> : null;
     //const content = !(loading || error) ? this.renderItems(itemList) : null;
@@ -52,13 +43,10 @@ function ItemList({getData, onItemSelected, renderItem}) {
     const items =renderItems(itemList);
     return (
         <ul className=" item-list items-block rounded">
-            
             {items}
         </ul>
     );
     
 }
-// ItemList.defaultProps = {
-//     onItemSelected: () => {}
-// }
+
 export default ItemList;

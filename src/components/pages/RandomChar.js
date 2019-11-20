@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {useState, useEffect} from "react";
 //import './randomChar.css';
 import GotService from "../../services/gotService";
 import Spinner from "../spinner";
@@ -28,74 +28,52 @@ const ToggleButton = styled.button`
     border-radius: .25rem;
     width: 100px;
     margin-bottom: 15px;
-`
+`;
 const Term = styled.span`
   font-weight: bold;
 `;
-class RandomChar extends Component {
-  gotService = new GotService();
 
-  state = {
-    item: {},
-    loading: true,
-    error: false,
-    visible: true
-  };
-  toggleVisibility = () => {
-    this.setState(({visible}) => ({
-        visible: !visible
-    }));
-}
-  componentDidMount() {
-    this.updateItem();
-    this.timerId = setInterval(this.updateItem, 4500);
-  }
-  componentWillUnmount() {
-    clearInterval(this.timerId);
-  }
-  onItemLoaded = item => {
-    this.setState({
-      item,
-      loading: false
-    });
-  };
-  onError = (err) => {
-    this.setState({
-      error: true,
-      loading: false
-    });
-  };
-  updateItem = () => {
-    //const id = 125463;
+function RandomChar() {
+  let gotService = new GotService();
+  
+  const [loading, onItemLoaded] = useState(true);
+  const [visible, toggleVisibility] = useState(true);
+  const [item, onItem] = useState(null);
+  const [error, onError] = useState(false);
+  
+  let updateItem = () => {
     const id = Math.floor(Math.random() * 140 + 25);
-    this.gotService
-      .getCharacter(id)
-      .then(this.onItemLoaded)
-      .catch(this.onError);
-  };
-  render() {
-    
-    const { item, loading, error, visible } = this.state;
+    gotService.getCharacter(id)
+    .then(onItemLoaded(false))
+    .then(onItem(item))
+    .catch(onError(false))
+  }
+
+  useEffect(() => {
+    let timerId = setInterval(updateItem, 2000);
+    return () => {
+      clearInterval(timerId);
+    }
+  }, [visible]);
+
     const errorMessage = error ? <ErrorMessage /> : null;
     const spinner = loading ? <Spinner /> : null;
-    const content = !(loading || error || !visible) ? <View item={item} /> : null;
-    //const isVisible = this.state.visible ? <View item={item} /> : null;
-
+    const content = !(loading || error || !visible) ? <View/> : null;
+    
     return (
+      
         <div>
-    <ToggleButton onClick={this.toggleVisibility}>{this.state.visible ? 'Hide' : 'Show'}</ToggleButton>
-      <>
-          
+      <ToggleButton onClick={() => toggleVisibility(!visible)}>{visible ? 'Hide' : 'Show'}</ToggleButton>
         {errorMessage}
         {spinner}
-        {content}
-      </>
+        {content} 
+      
       </div>
     );
-  }
+  
 }
 
-const View = ({ item }) => {
+const View = (item) => {
   const { name, gender, born, died, culture, url } = item;
   return (
       
