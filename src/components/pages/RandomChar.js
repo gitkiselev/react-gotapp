@@ -34,18 +34,35 @@ const Term = styled.span`
 `;
 
 function RandomChar() {
-  let gotService = new GotService();
+  GotService = new GotService();
   
   const [loading, onItemLoaded] = useState(true);
   const [visible, toggleVisibility] = useState(true);
-  const [item, onItem] = useState(null);
+  let itemRandom;
+  
+  const [name, setName] = useState(null);
+  const [gender, setGender] = useState(null);
+  const [born, setBorn] = useState(null);
+  const [died, setDied] = useState(null);
+  const [culture, setCulture] = useState(null);
+  const [url, setUrl] = useState(null);
   const [error, onError] = useState(false);
   
   let updateItem = () => {
     const id = Math.floor(Math.random() * 140 + 25);
-    gotService.getCharacter(id)
+    GotService.getCharacter(id)
     .then(onItemLoaded(false))
-    .then(onItem(item))
+    //.then(onItem(item))
+    .then(setName(name))
+    .then(setGender(gender))
+    .then(setBorn(born))
+    .then(setDied(died))
+    .then(setCulture(culture))
+    .then(setUrl(url))
+    .then((item) => {
+      itemRandom = item;
+      console.log(itemRandom);
+    })
     .catch(onError(false))
   }
 
@@ -58,7 +75,7 @@ function RandomChar() {
 
     const errorMessage = error ? <ErrorMessage /> : null;
     const spinner = loading ? <Spinner /> : null;
-    const content = !(loading || error || !visible) ? <View/> : null;
+    const content = !(loading || error || !visible) ? <View item={item}/> : null;
     
     return (
       
