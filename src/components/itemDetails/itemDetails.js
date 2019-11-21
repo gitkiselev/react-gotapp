@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import './charDetails.css';
-
 import Spinner from '../spinner';
 import ErrorMessage from '../errorMessage';
 
@@ -14,68 +13,71 @@ const Field = ({item, field, label}) => {
 }
 
 export {Field}
-export default class ItemDetails extends Component {
 
-    state = {
-        item: null,
-        loading: true,
-        error: false
-    }
-    componentDidMount() {
-        this.updateItem();
-    }
 
-    componentDidUpdate(prevProps) {
-        if(this.props.id !== prevProps.id) {
-            this.setState({
-                loading: true
-            });
-            this.updateItem();
-        }
-    }
 
-    onError = (err) => {
-        this.setState({
-            error: true,
-            loading: false
-        })
-    }
-
-    onItemLoaded = (item) => {
-        this.setState({
-            item,
-            loading: false
-        })
-    }
-
-    updateItem() {
-        const {getData} = this.props;
-        const {id} = this.props;
+function ItemDetails({getData, id}) {
+    let [item, setItem] = useState(null);
+    let [loading, setLoad] = useState(true);
+    let [error, setError] = useState(false);
+   
+    let updateItem = () => {
+        
+        //const {getData} = this.props;
+        //const {id} = this.props;
             if(!id) {
                 return;
             }
-            
             getData(id)
-            .then(this.onItemLoaded)
-            .catch(this.onError);
+            .then(setItem(item))
+            .catch(setError(false));
            //this.foo.bar = 0;
-        
-        
     }
 
-    render() {
-        const {item} = this.state;
-        
-        
+    useEffect((prevProps, props) => {
+        if(props.id !== prevProps.id) {
+            setLoad(true)
+            updateItem();
+        }
+    },[{item}])
+    // componentDidMount() {
+    //     this.updateItem();
+    // }
+
+    // componentDidUpdate(prevProps) {
+    //     if(this.props.id !== prevProps.id) {
+    //         this.setState({
+    //             loading: true
+    //         });
+    //         this.updateItem();
+    //     }
+    // }
+
+    // onError = (err) => {
+    //     this.setState({
+    //         error: true,
+    //         loading: false
+    //     })
+    // }
+
+    // onItemLoaded = (item) => {
+    //     this.setState({
+    //         item,
+    //         loading: false
+    //     })
+    // }
+
+    
+
         if(!item) {
             return <span className="select-error">
                 Please select a character
             </span>
         }
-        if (this.state.error) {
+        if (error) {
             return <ErrorMessage/>
         }
-        if (this.state.loading) {
+        if (loading) {
             return <Spinner/>
         }
         
@@ -92,5 +94,6 @@ export default class ItemDetails extends Component {
                     </ul>
             </div>
         );
-    }
+    
 }
+export default ItemDetails;

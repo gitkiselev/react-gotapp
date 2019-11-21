@@ -34,44 +34,31 @@ const Term = styled.span`
 `;
 
 function RandomChar() {
-  GotService = new GotService();
-  
+ 
+  const gotService = new GotService();
+  const [_isMounted, setMount] = useState(false)
   const [loading, onItemLoaded] = useState(true);
   const [visible, toggleVisibility] = useState(true);
-  let itemRandom;
-  
-  const [name, setName] = useState(null);
-  const [gender, setGender] = useState(null);
-  const [born, setBorn] = useState(null);
-  const [died, setDied] = useState(null);
-  const [culture, setCulture] = useState(null);
-  const [url, setUrl] = useState(null);
+  const [item, setItem] = useState(false);
   const [error, onError] = useState(false);
   
   let updateItem = () => {
     const id = Math.floor(Math.random() * 140 + 25);
-    GotService.getCharacter(id)
+    gotService.getCharacter(id)
     .then(onItemLoaded(false))
-    //.then(onItem(item))
-    .then(setName(name))
-    .then(setGender(gender))
-    .then(setBorn(born))
-    .then(setDied(died))
-    .then(setCulture(culture))
-    .then(setUrl(url))
-    .then((item) => {
-      itemRandom = item;
-      console.log(itemRandom);
-    })
+    .then(item => setItem(item)
+    )
     .catch(onError(false))
   }
-
+  console.log(item)
   useEffect(() => {
-    let timerId = setInterval(updateItem, 2000);
-    return () => {
-      clearInterval(timerId);
-    }
-  }, [visible]);
+    //setMount(true);
+    let timerId = setInterval(updateItem, 1000);
+      return () => {
+        clearInterval(timerId);
+        setMount(false);
+      }
+  },[visible]);
 
     const errorMessage = error ? <ErrorMessage /> : null;
     const spinner = loading ? <Spinner /> : null;
@@ -91,7 +78,7 @@ function RandomChar() {
 }
 
 const View = (item) => {
-  const { name, gender, born, died, culture, url } = item;
+  const { name, gender, born, died, culture, url } = item.item;
   return (
       
     <RandomBlock>
