@@ -14,15 +14,12 @@ const Field = ({item, field, label}) => {
 
 export {Field}
 
-
-
 function ItemDetails({getData, id}) {
     let [item, setItem] = useState(null);
     let [loading, setLoad] = useState(true);
     let [error, setError] = useState(false);
    
     let updateItem = () => {
-        
         //const {getData} = this.props;
         //const {id} = this.props;
             if(!id) {
@@ -32,14 +29,19 @@ function ItemDetails({getData, id}) {
             .then(setItem(item))
             .catch(setError(false));
            //this.foo.bar = 0;
+           
     }
 
-    useEffect((prevProps, props) => {
-        if(props.id !== prevProps.id) {
-            setLoad(true)
+    // useEffect((prevProps, props) => {
+    //     if(props.id !== prevProps.id) {
+    //         setLoad(true)
+    //         updateItem();
+    //     }
+    // },[{item}])
+    useEffect(() => {
             updateItem();
-        }
-    },[{item}])
+            setLoad(true)
+    },[item])
     // componentDidMount() {
     //     this.updateItem();
     // }

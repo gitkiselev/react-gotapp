@@ -34,15 +34,16 @@ const Term = styled.span`
 `;
 
 function RandomChar() {
- 
+  
   const gotService = new GotService();
-  const [_isMounted, setMount] = useState(false)
-  const [loading, onItemLoaded] = useState(true);
   const [visible, toggleVisibility] = useState(true);
+  const [loading, onItemLoaded] = useState(true);
   const [item, setItem] = useState(false);
   const [error, onError] = useState(false);
   
-  let updateItem = () => {
+  
+  
+  let updateItem =  () => {
     const id = Math.floor(Math.random() * 140 + 25);
     gotService.getCharacter(id)
     .then(onItemLoaded(false))
@@ -50,28 +51,33 @@ function RandomChar() {
     )
     .catch(onError(false))
   }
+  
   console.log(item)
   useEffect(() => {
-    //setMount(true);
-    let timerId = setInterval(updateItem, 1000);
+    
+      const timer = setInterval(() => { 
+        updateItem();
+      }, 1000)
       return () => {
-        clearInterval(timerId);
-        setMount(false);
-      }
-  },[visible]);
-
+        clearInterval(timer);
+        
+      };
+    },[]);
+  
+  
+  
+    const toggle = () => {toggleVisibility(!visible)}
     const errorMessage = error ? <ErrorMessage /> : null;
     const spinner = loading ? <Spinner /> : null;
-    const content = !(loading || error || !visible) ? <View item={item}/> : null;
+    const content = !(loading || error || !visible) ? <View  item={item}/> : null;
     
     return (
       
         <div>
-      <ToggleButton onClick={() => toggleVisibility(!visible)}>{visible ? 'Hide' : 'Show'}</ToggleButton>
+      <ToggleButton onClick={toggle}>{visible ? 'Hide' : 'Show'}</ToggleButton>
         {errorMessage}
         {spinner}
         {content} 
-      
       </div>
     );
   
