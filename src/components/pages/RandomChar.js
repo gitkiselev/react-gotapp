@@ -6,6 +6,7 @@ import ErrorMessage from "../errorMessage";
 import styled from "styled-components";
 import {withRouter} from 'react-router-dom';
 
+
 const RandomBlock = styled.div`
   img {
     width: 100%;
@@ -34,39 +35,58 @@ const Term = styled.span`
 `;
 
 function RandomChar() {
-  
+ 
   const gotService = new GotService();
   const [visible, toggleVisibility] = useState(true);
   const [loading, onItemLoaded] = useState(true);
   const [item, setItem] = useState(false);
   const [error, onError] = useState(false);
+  let timerId;
   
-  
-  
-  let updateItem =  () => {
+   function updateItem () {
     const id = Math.floor(Math.random() * 140 + 25);
     gotService.getCharacter(id)
+    .then((item) => setItem(item))
     .then(onItemLoaded(false))
-    .then(item => setItem(item)
-    )
     .catch(onError(false))
   }
+   console.log(item)
   
-  console.log(item)
-  useEffect(() => {
+  // useEffect(() => {
     
-      const timer = setInterval(() => { 
-        updateItem();
-      }, 1000)
-      return () => {
-        clearInterval(timer);
-        
-      };
-    },[]);
+  //     let tid = setInterval(updateItem, 2000)
+    
+  //     return () => {
+  //       setItem(false);
+  //         clearInterval(tid);
+          
+  //     };
+  //   },[visible]);
+  useEffect(() => {
+    updateItem();
+    timerId = setInterval(updateItem, 2000);
+
+    return () => {
+      clearInterval(timerId);
+    };
+  }, []);
+
+    
+  
+
+  
+          
   
   
+    
+    
+    
   
-    const toggle = () => {toggleVisibility(!visible)}
+  
+    const toggle = () => {
+      toggleVisibility(!visible);
+
+    }
     const errorMessage = error ? <ErrorMessage /> : null;
     const spinner = loading ? <Spinner /> : null;
     const content = !(loading || error || !visible) ? <View  item={item}/> : null;

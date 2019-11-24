@@ -9,7 +9,7 @@ export default class CharacterPage extends Component {
     gotService = new gotService();
 
     state = {
-        selectedChar: null,//130
+        selectedChar: null,
         error: false
     }
 
@@ -39,7 +39,7 @@ export default class CharacterPage extends Component {
 
         const itemDetails = (
             <ItemDetails charId={this.state.selectedChar}
-            getData={this.gotService.getCharacter}>
+                         getData={this.gotService.getCharacter}>
                 <Field field='gender' label='Gender' />
                 <Field field='born' label='Born' />
                 <Field field='died' label='Died' />
