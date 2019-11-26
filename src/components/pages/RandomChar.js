@@ -43,13 +43,17 @@ function RandomChar() {
   const [error, onError] = useState(false);
   let timerId;
   
-   function updateItem () {
+   const updateItem = async () => {
     const id = Math.floor(Math.random() * 140 + 25);
-    gotService.getCharacter(id)
+    await gotService.getCharacter(id)
     .then((item) => setItem(item))
     .then(onItemLoaded(false))
     .catch(onError(false))
+     
+    
   }
+  
+  
    console.log(item)
   
   // useEffect(() => {
