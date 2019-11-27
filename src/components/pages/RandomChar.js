@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-//import './randomChar.css';
 import GotService from "../../services/gotService";
 import Spinner from "../spinner";
 import ErrorMessage from "../errorMessage";
@@ -41,52 +40,30 @@ function RandomChar() {
   const [loading, onItemLoaded] = useState(true);
   const [item, setItem] = useState(false);
   const [error, onError] = useState(false);
-  let timerId;
+  
   
    const updateItem = async () => {
     const id = Math.floor(Math.random() * 140 + 25);
-    await gotService.getCharacter(id)
+    gotService.getCharacter(id)
     .then((item) => setItem(item))
     .then(onItemLoaded(false))
-    .catch(onError(false))
-     
+    .then(onError(false))
+    
+    
     
   }
-  
-  
    console.log(item)
-  
-  // useEffect(() => {
-    
-  //     let tid = setInterval(updateItem, 2000)
-    
-  //     return () => {
-  //       setItem(false);
-  //         clearInterval(tid);
-          
-  //     };
-  //   },[visible]);
-  useEffect(() => {
-    updateItem();
-    timerId = setInterval(updateItem, 2000);
+   useEffect(() => {
+    if (visible) {
+      let tid = setInterval(updateItem, 2000)
+      
+      return () => {
+        setItem(false);
+        clearInterval(tid);
+      };
+    }
+  },[visible]);
 
-    return () => {
-      clearInterval(timerId);
-    };
-  }, []);
-
-    
-  
-
-  
-          
-  
-  
-    
-    
-    
-  
-  
     const toggle = () => {
       toggleVisibility(!visible);
 
